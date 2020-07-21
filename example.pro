@@ -57,7 +57,7 @@ engineering_english_install.path = /usr/share/translations/nemotransferengine
 engineering_english_install.files = $$EE_QM
 engineering_english_install.CONFIG += no_check_exist
 
-TS_FI_FILE = translations/example_share_plugin-fi.ts
+TS_FI_FILE = $$PWD/translations/example_share_plugin-fi.ts
 QM_FI_FILE = example_share_plugin-fi.qm
 
 finnish.commands += lrelease -idbased $$TS_FI_FILE -qm $$QM_FI_FILE
