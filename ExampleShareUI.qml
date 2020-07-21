@@ -74,8 +74,7 @@ ShareDialog {
         metadataStripped: true
         serviceId: root.methodId
         userData: {"description": "Random Text which can be what ever",
-                   "accountId": root.accountId,
-                   "scalePercent": root.scalePercent}
+                   "accountId": root.accountId}
     }
 
     DialogHeader {
