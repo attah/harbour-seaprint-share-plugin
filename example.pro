@@ -77,5 +77,5 @@ PRE_TARGETDEPS += ts engineering_english finnish
 INSTALLS += ts_install engineering_english_install finnish_install
 
 OTHER_FILES += \
-    rpm/*
+    rpm/* \
     translations/*
