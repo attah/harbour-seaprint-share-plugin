@@ -27,61 +27,59 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ******************************************************************************/
 
-#include "exampleplugininfo.h"
+#include "seaprintuploader.h"
+#include "mediaitem.h"
+#include <QtDebug>
+#include <QProcess>
 
-ExamplePluginInfo::ExamplePluginInfo()
-    : m_ready(false)
+SeaPrintUploader::SeaPrintUploader(QObject *parent):
+    MediaTransferInterface(parent)
 {
-
 }
 
-ExamplePluginInfo::~ExamplePluginInfo()
+SeaPrintUploader::~SeaPrintUploader()
 {
-
 }
 
-QList<TransferMethodInfo> ExamplePluginInfo::info() const
+QString SeaPrintUploader::displayName() const
 {
-    return m_infoList;
+    return tr("Example");
 }
 
-void ExamplePluginInfo::query()
+QUrl SeaPrintUploader::serviceIcon() const
 {
-    TransferMethodInfo info;
-    QStringList capabilities;
+    // Url to the icon which should be shown in the transfer UI
+    return QUrl("file:///usr/share/icons/hicolor/86x86/apps/harbour-seaprint.png");
+}
 
-    // Capabilites ie. what mimetypes this plugin supports
-    capabilities << QLatin1String("image/*")
-                 << QLatin1String("text/vcard");
+bool SeaPrintUploader::cancelEnabled() const
+{
+    // Return true if cancelling ongoing upload is supported
+    // Return false if cancelling ongoing upload is not supported
+    return false;
+}
 
-    // TODO: Translations for 3rd party plugins is not yet supported by Sailfish OS.
-    //       Adding support there later, but for now just use what ever non-translated
-    //       string here. This string will be visible in the share method list.
-    //: Display name for example share plugin
-    //% "Example plugin"
-    info.displayName     = qtTrId("example-localization-li-id");
-
-    // Method ID is a unique identifier for this plugin. It is used to identify which share plugin should be
-    // used for starting the sharing.
-    info.methodId        = QLatin1String("Example-Share-Method-ID");
-
-    // Path to the Sharing UI which this plugin provides.
-    info.shareUIPath     = QLatin1String("/usr/share/nemo-transferengine/plugins/ExampleShareUI.qml");
-
-    // Pass information about capabilities. This info is used for filtering share plugins
-    // which don't support defined types. For example, this plugin won't appear in the
-    // share method list, if someone tries to share content which isn't image or vcard type,
-    info.capabilitities  = capabilities;
-
-    m_infoList << info;
-
-    // Let the world know that this plugin is ready
-    m_ready = true;
-    emit infoReady();
+bool SeaPrintUploader::restartEnabled() const
+{
+    // Return true, if restart is  supported.
+    // Return false, if restart is not supported
+    return false;
 }
 
 
-bool ExamplePluginInfo::ready() const
+void SeaPrintUploader::start()
 {
-    return m_ready;
+    // This is called by the sharing framework to start sharing
+    qDebug() << "start" << mediaItem()->value(MediaItem::Url);
+    QUrl fileUrl = mediaItem()->value(MediaItem::Url).toUrl();
+    QProcess::startDetached("harbour-seaprint", {fileUrl.toLocalFile()});
+    // TODO: Add your code here to start uploading
 }
+
+void SeaPrintUploader::cancel()
+{
+    // This is called by the sharing framework to cancel on going transfer
+
+    // TODO: Add your code here to cancel ongoing upload
+}
+

@@ -27,56 +27,39 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ******************************************************************************/
 
-#include "exampleuploader.h"
-#include "mediaitem.h"
+import QtQuick 2.0
+import Sailfish.Silica 1.0
+import Sailfish.TransferEngine 1.0
 
-ExampleUploader::ExampleUploader(QObject *parent):
-    MediaTransferInterface(parent)
-{
+ShareDialog {
+    id: root
+    anchors.fill: parent
 
-}
-
-ExampleUploader::~ExampleUploader()
-{
-}
-
-QString ExampleUploader::displayName() const
-{
-    return tr("Example");
-}
-
-QUrl ExampleUploader::serviceIcon() const
-{
-    // Url to the icon which should be shown in the transfer UI
-    return QUrl("image://theme/icon-s-message");
-}
-
-bool ExampleUploader::cancelEnabled() const
-{
-    // Return true if cancelling ongoing upload is supported
-    // Return false if cancelling ongoing upload is not supported
-    return false;
-}
-
-bool ExampleUploader::restartEnabled() const
-{
-    // Return true, if restart is  supported.
-    // Return false, if restart is not supported
-    return false;
-}
+    onAccepted: {
+        shareItem.start()
+    }
 
 
-void ExampleUploader::start()
-{
-    // This is called by the sharing framework to start sharing
+    Image {
+        anchors.centerIn: parent
+        source: Qt.resolvedUrl("/usr/share/icons/hicolor/172x172/apps/harbour-seaprint.png")
+        width: Theme.iconSizeExtraLarge
+        height: Theme.iconSizeExtraLarge
+        smooth: true
+        asynchronous: true
+    }
 
-    // TODO: Add your code here to start uploading
-}
+    SailfishShare {
+        id: shareItem
+        source: root.source
+        metadataStripped: true
+        serviceId: root.methodId
+        userData: {"description": "Random Text which can be what ever",
+                   "accountId": root.accountId}
+    }
 
-void ExampleUploader::cancel()
-{
-    // This is called by the sharing framework to cancel on going transfer
-
-    // TODO: Add your code here to cancel ongoing upload
+    DialogHeader {
+        acceptText: "Print"
+    }
 }
 

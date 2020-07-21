@@ -26,24 +26,58 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ******************************************************************************/
-#ifndef EXAMPLEPLUGININFO_H
-#define EXAMPLEPLUGININFO_H
 
-#include "transferplugininfo.h"
+#include "seaprintplugininfo.h"
 
-class ExamplePluginInfo : public TransferPluginInfo
+SeaPrintPluginInfo::SeaPrintPluginInfo()
+    : m_ready(false)
 {
-    Q_OBJECT
-public:
-    ExamplePluginInfo();
-    ~ExamplePluginInfo();
 
-    QList<TransferMethodInfo> info() const;
-    void query();
-    bool ready() const;
-private:
-    QList<TransferMethodInfo> m_infoList;
-    bool m_ready;
-};
+}
 
-#endif // EXAMPLEPLUGININFO_H
+SeaPrintPluginInfo::~SeaPrintPluginInfo()
+{
+
+}
+
+QList<TransferMethodInfo> SeaPrintPluginInfo::info() const
+{
+    return m_infoList;
+}
+
+void SeaPrintPluginInfo::query()
+{
+    TransferMethodInfo info;
+    QStringList capabilities;
+
+    // Capabilites ie. what mimetypes this plugin supports
+    capabilities << QLatin1String("image/*")
+                 << QLatin1String("application/pdf")
+                 << QLatin1String("application/postscript");
+
+    info.displayName     = "SeaPrint";
+
+    // Method ID is a unique identifier for this plugin. It is used to identify which share plugin should be
+    // used for starting the sharing.
+    info.methodId        = QLatin1String("SeaPrint-Share-Method-ID");
+
+    // Path to the Sharing UI which this plugin provides.
+    info.shareUIPath     = QLatin1String("/usr/share/nemo-transferengine/plugins/SeaPrintShareUI.qml");
+
+    // Pass information about capabilities. This info is used for filtering share plugins
+    // which don't support defined types. For example, this plugin won't appear in the
+    // share method list, if someone tries to share content which isn't image or vcard type,
+    info.capabilitities  = capabilities;
+
+    m_infoList << info;
+
+    // Let the world know that this plugin is ready
+    m_ready = true;
+    emit infoReady();
+}
+
+
+bool SeaPrintPluginInfo::ready() const
+{
+    return m_ready;
+}

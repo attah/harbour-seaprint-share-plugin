@@ -27,25 +27,36 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ******************************************************************************/
 
-#ifndef EXAMPLESHAREPLUGIN_H
-#define EXAMPLESHAREPLUGIN_H
-#include "transferplugininterface.h"
-#include <QObject>
+#include "seaprintshareplugin.h"
+#include "seaprintuploader.h"
+#include "seaprintplugininfo.h"
+#include <QtPlugin>
 
-class Q_DECL_EXPORT ExampleSharePlugin : public QObject, public TransferPluginInterface
+SeaPrintSharePlugin::SeaPrintSharePlugin()
 {
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID "com.myapp.transfer.plugin.example")
-    Q_INTERFACES(TransferPluginInterface)
-public:
-    ExampleSharePlugin();
-    ~ExampleSharePlugin();
+}
 
-    MediaTransferInterface * transferObject();
-    TransferPluginInfo *infoObject();
-    QString pluginId() const;
-    bool enabled() const ;
+SeaPrintSharePlugin::~SeaPrintSharePlugin()
+{
+}
 
-};
+MediaTransferInterface * SeaPrintSharePlugin::transferObject()
+{
+    return new SeaPrintUploader;
+}
 
-#endif // EXAMPLESHAREPLUGIN_H
+TransferPluginInfo *SeaPrintSharePlugin::infoObject()
+{
+    return new SeaPrintPluginInfo;
+}
+
+QString SeaPrintSharePlugin::pluginId() const
+{
+    return "SeaPrint-Share-Method-ID";
+}
+
+bool SeaPrintSharePlugin::enabled() const
+{
+    return true;
+}
+

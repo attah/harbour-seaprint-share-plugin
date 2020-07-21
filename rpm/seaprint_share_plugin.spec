@@ -1,10 +1,10 @@
-Name: example-share-plugin
+Name: seaprint-share-plugin
 Version: 0.0.1
 Release: 0
-Summary: Share plugins for nemo transfer engine
+Summary: Share plugin for SeaPrint
 Group: System/Libraries
 License: LICENCE
-URL: https://github.com/nemomobile/transfer-engine
+URL: https://github.com/attah/harbour-seaprint-share-plugin
 Source0: %{name}-%{version}.tar.gz
 BuildRequires: pkgconfig(Qt5Core)
 BuildRequires: pkgconfig(Qt5Qml)
@@ -22,19 +22,6 @@ Requires:  declarative-transferengine-qt5 >= 0.0.44
 %defattr(-,root,root,-)
 %{_libdir}/nemo-transferengine/plugins/*shareplugin.so
 %{_datadir}/nemo-transferengine/plugins/*.qml
-%{_datadir}/translations/nemotransferengine/*.qm
-
-%package ts-devel
-Summary:   Translation source for Transfer Engine share plugins
-License:   TBD
-Group:     System/Libraries
-
-%description ts-devel
-Translation source for Transfer Engine share plugins
-
-%files ts-devel
-%defattr(-,root,root,-)
-%{_datadir}/translations/source/example_share_plugin.ts
 
 %prep
 %setup -q -n %{name}-%{version}

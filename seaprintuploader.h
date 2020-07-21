@@ -31,12 +31,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define EXAMPLEUPLOADER_H
 #include "mediatransferinterface.h"
 
-class ExampleUploader : public MediaTransferInterface
+class SeaPrintUploader : public MediaTransferInterface
 {
     Q_OBJECT
 public:
-    ExampleUploader(QObject *parent = 0);
-    ~ExampleUploader();
+    SeaPrintUploader(QObject *parent = 0);
+    ~SeaPrintUploader();
 
     QString displayName() const;
     QUrl serviceIcon() const;
