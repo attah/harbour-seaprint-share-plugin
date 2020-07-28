@@ -64,6 +64,8 @@ void SeaPrintPluginInfo::query()
     // Path to the Sharing UI which this plugin provides.
     info.shareUIPath     = QLatin1String("/usr/share/nemo-transferengine/plugins/SeaPrintShareUI.qml");
 
+    info.accountIcon     = QStringLiteral("image://theme/icon-m-share-harbour-seaprint");
+
     // Pass information about capabilities. This info is used for filtering share plugins
     // which don't support defined types. For example, this plugin won't appear in the
     // share method list, if someone tries to share content which isn't image or vcard type,

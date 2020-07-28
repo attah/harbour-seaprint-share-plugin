@@ -49,7 +49,7 @@ QString SeaPrintUploader::displayName() const
 QUrl SeaPrintUploader::serviceIcon() const
 {
     // Url to the icon which should be shown in the transfer UI
-    return QUrl("file:///usr/share/icons/hicolor/86x86/apps/harbour-seaprint.png");
+    return QUrl();
 }
 
 bool SeaPrintUploader::cancelEnabled() const
