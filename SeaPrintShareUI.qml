@@ -59,7 +59,6 @@ ShareDialog {
     }
 
     DialogHeader {
-        acceptText: "Print"
     }
 }
 
