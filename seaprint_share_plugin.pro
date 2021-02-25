@@ -36,7 +36,7 @@ shareui_icon_72.path = /usr/share/themes/sailfish-default/meegotouch/z1.5-large/
 shareui_icon_112.files = $$PWD/icons/z1.75/icon-m-share-harbour-seaprint.png
 shareui_icon_112.path = /usr/share/themes/sailfish-default/meegotouch/z1.75/icons
 
-target.path = /usr/lib/nemo-transferengine/plugins
+target.path = $$LIBDIR/nemo-transferengine/plugins
 
 INSTALLS += \
     target \
