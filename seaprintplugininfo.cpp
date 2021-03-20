@@ -53,7 +53,12 @@ void SeaPrintPluginInfo::query()
     // Capabilites ie. what mimetypes this plugin supports
     capabilities << QLatin1String("image/*")
                  << QLatin1String("application/pdf")
-                 << QLatin1String("application/postscript");
+                 << QLatin1String("application/postscript")
+                 << QLatin1String("application/msword")
+                 << QLatin1String("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+                 << QLatin1String("text/rtf")
+                 << QLatin1String("application/rtf")
+                 << QLatin1String("application/vnd.oasis.opendocument.text");
 
     info.displayName     = "SeaPrint";
 
