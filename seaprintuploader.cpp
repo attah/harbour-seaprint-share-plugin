@@ -31,6 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "mediaitem.h"
 #include <QtDebug>
 #include <QProcess>
+#include <QTemporaryFile>
 
 SeaPrintUploader::SeaPrintUploader(QObject *parent):
     MediaTransferInterface(parent)
@@ -70,9 +71,22 @@ bool SeaPrintUploader::restartEnabled() const
 void SeaPrintUploader::start()
 {
     // This is called by the sharing framework to start sharing
-    qDebug() << "start" << mediaItem()->value(MediaItem::Url);
-    QUrl fileUrl = mediaItem()->value(MediaItem::Url).toUrl();
-    QProcess::startDetached("harbour-seaprint", {fileUrl.toLocalFile()});
+    QString fileUrl;
+
+    if(mediaItem()->value(MediaItem::Url) != "")
+    {
+        fileUrl = mediaItem()->value(MediaItem::Url).toUrl().toLocalFile();
+    }
+    else
+    {
+        QTemporaryFile tmpfile;
+        tmpfile.setAutoRemove(false);
+        tmpfile.open();
+        tmpfile.write(mediaItem()->value(MediaItem::UserData).toMap()["data"].toString().toUtf8());
+        tmpfile.close();
+        fileUrl = tmpfile.fileName();
+    }
+    QProcess::startDetached("harbour-seaprint", {fileUrl});
     // TODO: Add your code here to start uploading
 }
 

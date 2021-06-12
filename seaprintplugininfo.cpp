@@ -58,7 +58,8 @@ void SeaPrintPluginInfo::query()
                  << QLatin1String("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
                  << QLatin1String("text/rtf")
                  << QLatin1String("application/rtf")
-                 << QLatin1String("application/vnd.oasis.opendocument.text");
+                 << QLatin1String("application/vnd.oasis.opendocument.text")
+                 << QLatin1String("text/plain");
 
     info.displayName     = "SeaPrint";
 
