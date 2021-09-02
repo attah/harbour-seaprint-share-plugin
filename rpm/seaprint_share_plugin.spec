@@ -12,7 +12,7 @@ BuildRequires: pkgconfig(nemotransferengine-qt5)
 BuildRequires: qt5-qttools
 BuildRequires: qt5-qttools-linguist
 
-Requires:  nemo-transferengine-qt5
+Requires:  nemo-transferengine-qt5 >= 1.0.12
 Requires:  declarative-transferengine-qt5 >= 0.0.44
 
 %description
