@@ -72,8 +72,7 @@ void SeaPrintUploader::start()
 {
     // This is called by the sharing framework to start sharing
     QString fileUrl;
-
-    if(mediaItem()->value(MediaItem::Url) != "")
+    if(mediaItem()->value(MediaItem::Url).isValid())
     {
         fileUrl = mediaItem()->value(MediaItem::Url).toUrl().toLocalFile();
     }
@@ -82,12 +81,11 @@ void SeaPrintUploader::start()
         QTemporaryFile tmpfile;
         tmpfile.setAutoRemove(false);
         tmpfile.open();
-        tmpfile.write(mediaItem()->value(MediaItem::UserData).toMap()["data"].toString().toUtf8());
+        tmpfile.write(mediaItem()->value(MediaItem::ContentData).toString().toUtf8());
         tmpfile.close();
         fileUrl = tmpfile.fileName();
     }
     QProcess::startDetached("harbour-seaprint", {fileUrl});
-    // TODO: Add your code here to start uploading
 }
 
 void SeaPrintUploader::cancel()
