@@ -27,39 +27,56 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ******************************************************************************/
 
-import QtQuick 2.0
+import QtQuick 2.6
 import Sailfish.Silica 1.0
 import Sailfish.TransferEngine 1.0
 
-ShareDialog {
-    id: root
-    anchors.fill: parent
+SilicaFlickable {
+    property var shareAction
 
-    onAccepted: {
-        shareItem.start()
+    Component.onCompleted: {
+        sailfishTransfer.loadConfiguration(shareAction.toConfiguration())
     }
 
-
-    Image {
-        anchors.centerIn: parent
-        source: Qt.resolvedUrl("/usr/share/icons/hicolor/172x172/apps/harbour-seaprint.png")
-        width: Theme.iconSizeExtraLarge
-        height: Theme.iconSizeExtraLarge
-        smooth: true
-        asynchronous: true
+    SailfishTransfer {
+        id: sailfishTransfer
     }
 
-    SailfishShare {
-        id: shareItem
-        source: root.source
-        metadataStripped: true
-        serviceId: root.methodId
-        userData: {"description": "Random Text which can be what ever",
-                   "accountId": root.accountId,
-                   "data": root.content.hasOwnProperty("data") ? root.content.data : ""}
-    }
+    width: Screen.width
+    height: Math.min(Screen.height, contentHeight)
+    contentHeight: contentColumn.height
 
-    DialogHeader {
+    Column {
+        id: contentColumn
+
+        width: parent.width
+        spacing: Theme.paddingLarge
+        bottomPadding: Theme.paddingLarge
+
+
+        Image {
+            source: Qt.resolvedUrl("/usr/share/icons/hicolor/172x172/apps/harbour-seaprint.png")
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: Theme.iconSizeExtraLarge
+            height: Theme.iconSizeExtraLarge
+            smooth: true
+            asynchronous: true
+        }
+
+        Button {
+            anchors.horizontalCenter: parent.horizontalCenter
+            icon.source: "image://theme/icon-m-accept"
+            onClicked: {
+
+                sailfishTransfer.userData = {
+                    "description": "Random Text which can be what ever",
+                    "accountId": sailfishTransfer.transferMethodInfo.accountId
+                }
+                sailfishTransfer.start()
+                root.dismiss()
+            }
+        }
+
     }
 }
 
