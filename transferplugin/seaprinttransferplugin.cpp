@@ -26,24 +26,25 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ******************************************************************************/
-#ifndef EXAMPLEPLUGININFO_H
-#define EXAMPLEPLUGININFO_H
 
-#include "transferplugininfo.h"
+#include "seaprinttransferplugin.h"
+#include "seaprintuploader.h"
+#include <QtPlugin>
 
-class SeaPrintPluginInfo : public TransferPluginInfo
+SeaPrintSharePlugin::SeaPrintSharePlugin()
 {
-    Q_OBJECT
-public:
-    SeaPrintPluginInfo();
-    ~SeaPrintPluginInfo();
+}
 
-    QList<TransferMethodInfo> info() const;
-    void query();
-    bool ready() const;
-private:
-    QList<TransferMethodInfo> m_infoList;
-    bool m_ready;
-};
+SeaPrintSharePlugin::~SeaPrintSharePlugin()
+{
+}
 
-#endif // EXAMPLEPLUGININFO_H
+MediaTransferInterface* SeaPrintSharePlugin::transferObject()
+{
+    return new SeaPrintUploader;
+}
+
+QString SeaPrintSharePlugin::pluginId() const
+{
+    return "SeaPrint-Share-Method-ID";
+}

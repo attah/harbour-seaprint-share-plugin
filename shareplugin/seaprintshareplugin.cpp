@@ -27,25 +27,25 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ******************************************************************************/
 
-#ifndef EXAMPLESHAREPLUGIN_H
-#define EXAMPLESHAREPLUGIN_H
-#include "transferplugininterface.h"
-#include <QObject>
+#include "seaprintshareplugin.h"
+#include "seaprintplugininfo.h"
+#include <QtPlugin>
 
-class Q_DECL_EXPORT SeaPrintSharePlugin : public QObject, public TransferPluginInterface
+SeaPrintSharePlugin::SeaPrintSharePlugin()
 {
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID "com.myapp.transfer.plugin.example")
-    Q_INTERFACES(TransferPluginInterface)
-public:
-    SeaPrintSharePlugin();
-    ~SeaPrintSharePlugin();
+}
 
-    MediaTransferInterface * transferObject();
-    TransferPluginInfo *infoObject();
-    QString pluginId() const;
-    bool enabled() const ;
+SeaPrintSharePlugin::~SeaPrintSharePlugin()
+{
+}
 
-};
+QString SeaPrintSharePlugin::pluginId() const
+{
+    return "SeaPrint-Share-Method-ID";
+}
 
-#endif // EXAMPLESHAREPLUGIN_H
+SharingPluginInfo* SeaPrintSharePlugin::infoObject()
+{
+    return new SeaPrintPluginInfo;
+}
+

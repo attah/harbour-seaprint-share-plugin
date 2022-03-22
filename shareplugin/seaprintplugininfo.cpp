@@ -30,7 +30,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "seaprintplugininfo.h"
 
 SeaPrintPluginInfo::SeaPrintPluginInfo()
-    : m_ready(false)
 {
 
 }
@@ -40,14 +39,14 @@ SeaPrintPluginInfo::~SeaPrintPluginInfo()
 
 }
 
-QList<TransferMethodInfo> SeaPrintPluginInfo::info() const
+QList<SharingMethodInfo> SeaPrintPluginInfo::info() const
 {
     return m_infoList;
 }
 
 void SeaPrintPluginInfo::query()
 {
-    TransferMethodInfo info;
+    SharingMethodInfo info;
     QStringList capabilities;
 
     // Capabilites ie. what mimetypes this plugin supports
@@ -61,31 +60,24 @@ void SeaPrintPluginInfo::query()
                  << QLatin1String("application/vnd.oasis.opendocument.text")
                  << QLatin1String("text/plain");
 
-    info.displayName     = "SeaPrint";
+    info.setDisplayName(QLatin1String("SeaPrint"));
 
     // Method ID is a unique identifier for this plugin. It is used to identify which share plugin should be
     // used for starting the sharing.
-    info.methodId        = QLatin1String("SeaPrint-Share-Method-ID");
+    info.setMethodId(QLatin1String("SeaPrint-Share-Method-ID"));
 
     // Path to the Sharing UI which this plugin provides.
-    info.shareUIPath     = QLatin1String("/usr/share/nemo-transferengine/plugins/SeaPrintShareUI.qml");
+    info.setShareUIPath(QLatin1String("/usr/share/nemo-transferengine/plugins/sharing/SeaPrintShareUI.qml"));
 
-    info.accountIcon     = QStringLiteral("image://theme/icon-m-share-harbour-seaprint");
+    info.setMethodIcon(QStringLiteral("image://theme/icon-m-share-harbour-seaprint"));
 
     // Pass information about capabilities. This info is used for filtering share plugins
     // which don't support defined types. For example, this plugin won't appear in the
     // share method list, if someone tries to share content which isn't image or vcard type,
-    info.capabilitities  = capabilities;
+    info.setCapabilities(capabilities);
 
     m_infoList << info;
 
     // Let the world know that this plugin is ready
-    m_ready = true;
     emit infoReady();
-}
-
-
-bool SeaPrintPluginInfo::ready() const
-{
-    return m_ready;
 }
