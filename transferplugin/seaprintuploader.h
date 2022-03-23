@@ -27,8 +27,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ******************************************************************************/
 
-#ifndef EXAMPLEUPLOADER_H
-#define EXAMPLEUPLOADER_H
+#ifndef SEAPRINTUPLOADER_H
+#define SEAPRINTUPLOADER_H
 #include "mediatransferinterface.h"
 
 class SeaPrintUploader : public MediaTransferInterface
@@ -48,4 +48,4 @@ public Q_SLOTS:
     void cancel();
 };
 
-#endif // EXAMPLEUPLOADER_H
+#endif // SEAPRINTUPLOADER_H

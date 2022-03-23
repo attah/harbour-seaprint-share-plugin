@@ -27,22 +27,22 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ******************************************************************************/
 
-#ifndef EXAMPLESHAREPLUGIN_H
-#define EXAMPLESHAREPLUGIN_H
+#ifndef SEAPRINTTRANSFERPLUGIN_H
+#define SEAPRINTTRANSFERPLUGIN_H
 #include "transferplugininterface.h"
 #include <QObject>
 
-class Q_DECL_EXPORT SeaPrintSharePlugin : public QObject, public TransferPluginInterface
+class Q_DECL_EXPORT SeaPrintTransferPlugin : public QObject, public TransferPluginInterface
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "net.attah.seaprint.transfer-plugin")
     Q_INTERFACES(TransferPluginInterface)
 public:
-    SeaPrintSharePlugin();
-    ~SeaPrintSharePlugin();
+    SeaPrintTransferPlugin();
+    ~SeaPrintTransferPlugin();
 
     MediaTransferInterface * transferObject();
     QString pluginId() const;
 };
 
-#endif // EXAMPLESHAREPLUGIN_H
+#endif // SEAPRINTTRANSFERPLUGIN_H

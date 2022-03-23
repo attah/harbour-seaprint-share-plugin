@@ -44,7 +44,7 @@ SeaPrintUploader::~SeaPrintUploader()
 
 QString SeaPrintUploader::displayName() const
 {
-    return tr("Example");
+    return "SeaPrint";
 }
 
 QUrl SeaPrintUploader::serviceIcon() const

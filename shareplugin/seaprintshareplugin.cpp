@@ -31,20 +31,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "seaprintplugininfo.h"
 #include <QtPlugin>
 
-SeaPrintSharePlugin::SeaPrintSharePlugin()
+SeaPrintTransferPlugin::SeaPrintTransferPlugin()
 {
 }
 
-SeaPrintSharePlugin::~SeaPrintSharePlugin()
+SeaPrintTransferPlugin::~SeaPrintTransferPlugin()
 {
 }
 
-QString SeaPrintSharePlugin::pluginId() const
+QString SeaPrintTransferPlugin::pluginId() const
 {
     return "SeaPrint-Share-Method-ID";
 }
 
-SharingPluginInfo* SeaPrintSharePlugin::infoObject()
+SharingPluginInfo* SeaPrintTransferPlugin::infoObject()
 {
     return new SeaPrintPluginInfo;
 }
