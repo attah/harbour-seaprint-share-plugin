@@ -47,18 +47,20 @@ QList<SharingMethodInfo> SeaPrintPluginInfo::info() const
 void SeaPrintPluginInfo::query()
 {
     SharingMethodInfo info;
-    QStringList capabilities;
-
     // Capabilites ie. what mimetypes this plugin supports
-    capabilities << QLatin1String("image/*")
-                 << QLatin1String("application/pdf")
-                 << QLatin1String("application/postscript")
-                 << QLatin1String("application/msword")
-                 << QLatin1String("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-                 << QLatin1String("text/rtf")
-                 << QLatin1String("application/rtf")
-                 << QLatin1String("application/vnd.oasis.opendocument.text")
-                 << QLatin1String("text/plain");
+
+    QStringList capabilities = {"image/*",
+                                "application/pdf",
+                                "application/postscript",
+                                "application/msword",
+                                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                                "text/rtf",
+                                "application/rtf",
+                                "application/vnd.oasis.opendocument.text",
+                                "application/vnd.ms-powerpoint",
+                                "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                                "application/vnd.oasis.opendocument.presentation",
+                                "text/plain"};
 
     info.setDisplayName(QLatin1String("SeaPrint"));
 
