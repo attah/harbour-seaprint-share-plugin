@@ -32,14 +32,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "sharingplugininterface.h"
 #include <QObject>
 
-class Q_DECL_EXPORT SeaPrintTransferPlugin : public QObject, public SharingPluginInterface
+class Q_DECL_EXPORT SeaPrintSharePlugin : public QObject, public SharingPluginInterface
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "net.seaprint.share-plugin")
     Q_INTERFACES(SharingPluginInterface)
 public:
-    SeaPrintTransferPlugin();
-    ~SeaPrintTransferPlugin();
+    SeaPrintSharePlugin();
+    ~SeaPrintSharePlugin();
 
     SharingPluginInfo* infoObject();
     QString pluginId() const;
