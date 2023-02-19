@@ -30,21 +30,37 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import QtQuick 2.6
 import Sailfish.Silica 1.0
 import Sailfish.TransferEngine 1.0
+import Nemo.DBus 2.0
 
 SilicaFlickable {
     property var shareAction
 
-    Component.onCompleted: {
-        sailfishTransfer.loadConfiguration(shareAction.toConfiguration())
-    }
-
-    SailfishTransfer {
-        id: sailfishTransfer
-    }
-
     width: Screen.width
     height: Math.min(Screen.height, contentHeight)
     contentHeight: contentColumn.height
+
+    DBusInterface {
+        id: dbus
+        bus: DBus.SessionBus
+
+        service: 'net.attah.seaprint'
+        path: '/net/attah/seaprint'
+        iface: 'net.attah.seaprint'
+
+        function doOpen(file)
+        {
+            typedCall("Open",
+                      [{"type": "s", "value": file}],
+                      function (msg) {console.log("success", msg)}, function(msg) {console.log("fail", msg)})
+        }
+        function doOpenPlaintext(data, name)
+        {
+            typedCall("OpenPlaintext",
+                      [{"type": "s", "value": data},
+                       {"type": "s", "value": name}],
+                      function (msg) {console.log("success", msg)}, function(msg) {console.log("fail", msg)})
+        }
+    }
 
     Column {
         id: contentColumn
@@ -67,12 +83,17 @@ SilicaFlickable {
             anchors.horizontalCenter: parent.horizontalCenter
             icon.source: "image://theme/icon-m-accept"
             onClicked: {
-
-                sailfishTransfer.userData = {
-                    "description": "Random Text which can be what ever",
-                    "accountId": sailfishTransfer.transferMethodInfo.accountId
+                console.log("WWWWWWWWWWWW", JSON.stringify(shareAction), typeof shareAction.resources[0])
+                console.log(shareAction.resources[0].constructor.name)
+                if(shareAction.resources[0].constructor.name === "Object")
+                {
+                    dbus.doOpenPlainText(shareAction.resources[0].data, shareAction.resources[0].name)
                 }
-                sailfishTransfer.start()
+                else
+                {
+                    dbus.doOpen(shareAction.resources[0])
+                }
+
                 root.dismiss()
             }
         }

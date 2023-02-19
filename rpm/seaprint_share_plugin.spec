@@ -20,7 +20,6 @@ Requires:  declarative-transferengine-qt5 >= 0.0.44
 
 %files
 %defattr(-,root,root,-)
-%{_libdir}/nemo-transferengine/plugins/transfer/*transferplugin.so
 %{_libdir}/nemo-transferengine/plugins/sharing/*shareplugin.so
 %{_datadir}/nemo-transferengine/plugins/sharing/*.qml
 %{_datadir}/themes/sailfish-default/meegotouch/z1.0/icons/icon-m-share-harbour-seaprint.png
@@ -40,4 +39,3 @@ make %{?jobs:-j%jobs}
 %install
 rm -rf %{buildroot}
 %qmake5_install
-

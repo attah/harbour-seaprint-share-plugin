@@ -1,2 +1,2 @@
 TEMPLATE = subdirs
-SUBDIRS = shareplugin transferplugin
+SUBDIRS = shareplugin
