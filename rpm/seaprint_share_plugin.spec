@@ -12,8 +12,12 @@ BuildRequires: pkgconfig(nemotransferengine-qt5)
 BuildRequires: qt5-qttools
 BuildRequires: qt5-qttools-linguist
 
+Requires:  harbour-seaprint >= 1.3
 Requires:  nemo-transferengine-qt5 >= 2.0.0
 Requires:  declarative-transferengine-qt5 >= 0.0.44
+
+%define _source_payload w6T.xzdio
+%define _binary_payload w6T.xzdio
 
 %description
 %{summary}.
