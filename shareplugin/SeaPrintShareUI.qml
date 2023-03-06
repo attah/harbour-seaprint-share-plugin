@@ -87,7 +87,7 @@ SilicaFlickable {
                 console.log(shareAction.resources[0].constructor.name)
                 if(shareAction.resources[0].constructor.name === "Object")
                 {
-                    dbus.doOpenPlainText(shareAction.resources[0].data, shareAction.resources[0].name)
+                    dbus.doOpenPlaintext(shareAction.resources[0].data, shareAction.resources[0].name)
                 }
                 else
                 {
