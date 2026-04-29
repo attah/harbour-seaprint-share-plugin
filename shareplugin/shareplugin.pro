@@ -3,6 +3,8 @@ TARGET = $$qtLibraryTarget(seaprintshareplugin)
 CONFIG += plugin
 DEPENDPATH += .
 
+QT -= gui
+
 CONFIG += link_pkgconfig
 PKGCONFIG += nemotransferengine-qt5
 
