@@ -22,6 +22,20 @@ Requires:  declarative-transferengine-qt5 >= 0.0.44
 %description
 %{summary}.
 
+%if 0%{?_chum}
+Title: SeaPrint Share Plugin
+Type: addon
+DeveloperName: attah
+Categories:
+ - Utility
+Custom:
+  Repo: https://github.com/attah/harbour-seaprint-share-plugin
+Links:
+  Homepage: https://github.com/attah/harbour-seaprint-share-plugin
+  Bugtracker: https://github.com/attah/harbour-seaprint-share-plugin/issues
+  Donation: https://paypal.me/AntonThomasson
+%endif
+
 %files
 %defattr(-,root,root,-)
 %{_libdir}/nemo-transferengine/plugins/sharing/*shareplugin.so
